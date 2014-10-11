@@ -220,7 +220,7 @@
         </member>
         <member name="M:WebAlertSys.Form_Set.ButtonSaveClick(System.Object,System.EventArgs)">
             <summary>
-            保存窗体设置数据到ini
+            写配置文件
             </summary>
             <param name="sender"></param>
             <param name="e"></param>

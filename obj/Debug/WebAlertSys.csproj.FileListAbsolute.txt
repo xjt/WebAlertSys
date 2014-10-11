@@ -8,3 +8,4 @@ E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.Properties.Resources.resources
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.csproj.GenerateResource.Cache
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.exe
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.pdb
+E:\My Projects\WebAlertSys\bin\Debug\开发文档.XML

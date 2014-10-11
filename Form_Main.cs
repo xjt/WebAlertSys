@@ -12,9 +12,9 @@ namespace WebAlertSys
     /// </summary>
     public partial class Form_Main : Form
     {
-        //早盘交易起止时间
+        //早盘交易起止时间9:30-11:30
         private static DateTime[] MARKET_TIMES_AM = { DateTime.Today.Add(new TimeSpan(9, 30, 0)), DateTime.Today.Add(new TimeSpan(11, 30, 0)) };
-        //午盘交易起止时间
+        //午盘交易起止时间1:00:-3:00
         private static DateTime[] MARKET_TIMES_PM = { DateTime.Today.Add(new TimeSpan(13, 0, 0)), DateTime.Today.Add(new TimeSpan(15, 0, 0)) };
 
         private static float[] VReal = { 999999, 0, -999999 };  //当天股票的极小值，实时值，极大值
@@ -30,7 +30,7 @@ namespace WebAlertSys
         private int nInterval_CheckTimer;       //股票的巡检周期(秒)
 
         //定时器1：巡检定时器
-        private bool bRunning_CheckTimer = false;//巡检定时器运行标志
+        private bool bCheckTimerStatus = false;//巡检定时器运行标志
         private bool bAlerting = false;         //当前报警状态
 
         //定时器2:图标闪烁定时器
@@ -175,7 +175,7 @@ namespace WebAlertSys
                 this.ReadParamFromIniFile();
 
                 //如果巡检定时器已经在运行
-                if (this.bRunning_CheckTimer)
+                if (this.bCheckTimerStatus)
                 {
                     this.timer_check.Stop();
                     this.timer_check.Interval = this.nInterval_CheckTimer;//重设巡检周期后
@@ -191,16 +191,16 @@ namespace WebAlertSys
         /// <param name="e"></param>
         private void ToolStripMenuItem_启动或停止_Click(object sender, EventArgs e)
         {
-            if (!this.bRunning_CheckTimer)   //如果巡检定时器未运行，运行它...
+            if (!this.bCheckTimerStatus)   //如果巡检定时器未运行，运行它...
             {
-                this.bRunning_CheckTimer = true;
+                this.bCheckTimerStatus = true;
                 this.timer_check.Interval = this.nInterval_CheckTimer * 1000;
                 this.timer_check.Start();//启动巡检
                 this.ToolStripMenuItem_启动或停止.Text = "停止";
             }
             else//如果巡检定时器已经运行中，停止它...
             {
-                this.bRunning_CheckTimer = false;
+                this.bCheckTimerStatus = false;
                 this.timer_check.Stop();//停止巡检
                 this.ToolStripMenuItem_启动或停止.Text = "启动";
 
@@ -295,14 +295,14 @@ namespace WebAlertSys
             if ((DateTime.Now > MARKET_TIMES_AM[0] && DateTime.Now < MARKET_TIMES_AM[1]) ||
             (DateTime.Now > MARKET_TIMES_PM[0] && DateTime.Now < MARKET_TIMES_PM[1]))
             {
-                if (!this.bRunning_CheckTimer)    //自动启动巡检
+                if (!this.bCheckTimerStatus)    //自动启动巡检
                 {
                     StartOrStopMethod(true);
                 }
             }
             else
             {
-                if (this.bRunning_CheckTimer)     //自动停止巡检
+                if (this.bCheckTimerStatus)     //自动停止巡检
                 {
                     StartOrStopMethod(false);
                 }
@@ -314,7 +314,7 @@ namespace WebAlertSys
         /// </summary>
         private void StartOrStopMethod(bool bStart)
         {
-            this.bRunning_CheckTimer = bStart;
+            this.bCheckTimerStatus = bStart;
             this.timer_check.Interval = this.nInterval_CheckTimer * 1000;
             if (bStart)
             {
