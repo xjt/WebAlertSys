@@ -1,0 +1,23 @@
+﻿1、Win7下修改注册表需要赋予管理员启动权限：
+第一步：新添加app.manifest文件，修改如下：
+         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+         
+第二步：打开注册表键，并新设键值，如下：
+     
+      //设置为开机自启动        
+      RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);//打开注册表子项
+      key.SetValue("WebAlert", System.Reflection.Assembly.GetExecutingAssembly().Location);
+   
+2 也可以参考 http://www.winu.cn/space-14160-do-blog-id-24488.html
+
+2014.9.19
+----V2.0版改版目标：
+1、可以添加多个股票的监控；
+2、默认开机时自动启动监控模式；
+3、右键菜单的美化；
+4、记录每天天股价开盘价、收盘价、峰值时标信息，保存备查！
+5、开放监控股票网站的地址链接，可在右键菜单上输入；
+6、添加右键菜单：在每个股票菜单下添加子菜单，超链接到备用网址；
+7、添加涨跌率监控指标
+8、设置保本价、止盈（或目标价）、止损配置内容和监控提示；
+9、默认记录大盘指数；

@@ -1,0 +1,10 @@
+E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.exe.config
+E:\My Projects\WebAlertSys\bin\Debug\app.config
+E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.exe
+E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.pdb
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.Form_Main.resources
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.Form_Set.resources
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.Properties.Resources.resources
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.csproj.GenerateResource.Cache
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.exe
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.pdb

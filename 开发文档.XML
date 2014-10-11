@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAlertSys</name>
+    </assembly>
+    <members>
+        <member name="T:WebAlertSys.INIClass">
+            <summary>
+            负责配置文件的读写
+            </summary>
+            <remarks>公共基础类</remarks>
+        </member>
+        <member name="F:WebAlertSys.INIClass.installDirectory">
+            <summary>
+             软件安装路径，以此exe所在的路径为准。
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.INIClass.IniReadValue(System.String,System.String)">
+            <summary>
+            从Ini文件获取数据
+            </summary>
+            <param name="section">应用程序</param>
+            <param name="key">键的名称</param>
+            <returns>键的值</returns>
+        </member>
+        <member name="M:WebAlertSys.INIClass.IniWriteValue(System.String,System.String,System.String)">
+            <summary>
+            向Ini文件中写入值
+            </summary>
+            <param name="section">应用程序</param>
+            <param name="key">键的名称</param>
+            <param name="value">键的值</param>
+            <returns>执行成功为True，失败为False。</returns>
+        </member>
+        <member name="T:WebAlertSys.Form_Main">
+            <summary>
+            主窗体类
+            隐藏状态
+            </summary>
+            <summary>
+            隐藏的主窗口
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.Form_Main_Load(System.Object,System.EventArgs)">
+            <summary>
+            主窗体加载
+            隐藏主窗口和任务栏图标，显示托盘图标，自动启动定时器
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.timer_check_Tick(System.Object,System.EventArgs)">
+            <summary>
+            定时器触发，执行股价巡检
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.timer_icon_Tick(System.Object,System.EventArgs)">
+            <summary>
+            图标闪烁定时器
+            每个周期换一次图标
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_配置_Click(System.Object,System.EventArgs)">
+            <summary>
+            弹出配置窗口，设置控制参数并保存到ini
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_启动或停止_Click(System.Object,System.EventArgs)">
+            <summary>
+            启动或停止监控状态
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_退出_Click(System.Object,System.EventArgs)">
+            <summary>
+            退出系统
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.ReadParamFromIniFile">
+            <summary>
+            从ini刷新控制参数（类变量）
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.GetRealValue_Sohu(System.String)">
+            <summary>
+            解析sohu股票web窗体标题，取得实时股价
+            </summary>
+            <param name="content">窗体标题字符串，如“双环科技:9.58 2.90% +0.27 - 000707 - 搜狐证券”</param>
+            <returns>实时股价,错误返回-1</returns>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.IfAlertByValue(System.Single)">
+            <summary>
+            根据实时股价和参数判定是否需要报警
+            </summary>
+            <param name="realValue">实时股价</param>
+            <returns>是否报警</returns>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.timer_Market_Tick(System.Object,System.EventArgs)">
+            <summary>
+            判定开盘时间
+            每5分钟检查一次
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.StartOrStopMethod(System.Boolean)">
+            <summary>
+            启动或停止监控
+            </summary>
+        </member>
+        <member name="F:WebAlertSys.Form_Main.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:WebAlertSys.Form_Main.timer_check">
+            <summary>
+            巡检定时器周期
+            </summary>
+        </member>
+        <member name="F:WebAlertSys.Form_Main.timer_icon">
+            <summary>
+            图标闪烁周期
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:WebAlertSys.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:WebAlertSys.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:WebAlertSys.Properties.Resources.icon_heart">
+            <summary>
+              查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:WebAlertSys.Properties.Resources.icon_man">
+            <summary>
+              查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.Form_Set">
+            <summary>
+            参数设置窗口
+            </summary>
+            <summary>
+            参数设置窗体类
+            保存窗体设置参数到ini文件
+            </summary>
+        </member>
+        <member name="F:WebAlertSys.Form_Set.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Set.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WebAlertSys.Form_Set.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Set.#ctor">
+            <summary>
+            构造函数
+            从INI文件读数据，初始化窗体
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Form_Set.ButtonSaveClick(System.Object,System.EventArgs)">
+            <summary>
+            保存窗体设置数据到ini
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Set.AutoRunMethod">
+            <summary>
+            写注册表开机启动
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.BisicIp">
+            <summary>
+            抽象类，定义基础网站信息和方法
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.BisicIp.CreateIp(System.String,System.String)">
+            <summary>
+            抽象方法：根据code和ip装配网址
+            </summary>
+            <param name="code"></param>
+            <param name="ipUnfitted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAlertSys.BisicIp.AddMarketToCode(System.String)">
+            <summary>
+            返回带市场类型的股票代码
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
