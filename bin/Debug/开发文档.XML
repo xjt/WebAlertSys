@@ -43,6 +43,11 @@
             <param name="value">键的值</param>
             <returns>执行成功为True，失败为False。</returns>
         </member>
+        <member name="T:WebAlertSys.INFO_WARN">
+            <summary>
+            报警参数结构
+            </summary>
+        </member>
         <member name="T:WebAlertSys.Form_Main">
             <summary>
             主窗体类
@@ -56,14 +61,6 @@
             <summary>
             主窗体构造函数
             </summary>
-        </member>
-        <member name="M:WebAlertSys.Form_Main.Form_Main_Load(System.Object,System.EventArgs)">
-            <summary>
-            主窗体加载
-            隐藏主窗口和任务栏图标，显示托盘图标，自动启动定时器
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
         </member>
         <member name="M:WebAlertSys.Form_Main.timer_check_Tick(System.Object,System.EventArgs)">
             <summary>
@@ -103,22 +100,9 @@
         </member>
         <member name="M:WebAlertSys.Form_Main.ReadParamFromIniFile">
             <summary>
-            从ini读控制参数（代码、报警值、巡检周期）
+            从ini读取监控代码列表、报警值）
             </summary>
-        </member>
-        <member name="M:WebAlertSys.Form_Main.GetRealValue_Sohu(System.String)">
-            <summary>
-            解析sohu股票web窗体标题，取得实时股价
-            </summary>
-            <param name="content">窗体标题字符串，如“双环科技:9.58 2.90% +0.27 - 000707 - 搜狐证券”</param>
-            <returns>实时股价,错误返回-1</returns>
-        </member>
-        <member name="M:WebAlertSys.Form_Main.IfAlertByValue(System.Single)">
-            <summary>
-            根据实时股价和参数判定是否需要报警
-            </summary>
-            <param name="realValue">实时股价</param>
-            <returns>是否报警</returns>
+            <returns>par_set</returns>
         </member>
         <member name="M:WebAlertSys.Form_Main.timer_Market_Tick(System.Object,System.EventArgs)">
             <summary>
@@ -191,8 +175,7 @@
             参数设置窗口
             </summary>
             <summary>
-            参数设置窗体类
-            保存窗体设置参数到ini文件
+            监控参数设置类
             </summary>
         </member>
         <member name="F:WebAlertSys.Form_Set.components">
@@ -218,17 +201,54 @@
             从INI文件读数据，初始化窗体
             </summary>
         </member>
-        <member name="M:WebAlertSys.Form_Set.ButtonSaveClick(System.Object,System.EventArgs)">
-            <summary>
-            写配置文件
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:WebAlertSys.Form_Set.AutoRunMethod">
+        <member name="M:WebAlertSys.Form_Set.button_OK_Click(System.Object,System.EventArgs)">
             <summary>
             写注册表开机启动
             </summary>
+        </member>
+        <member name="F:WebAlertSys.SQLiteHelper.ConnSqlLiteDbPath">
+            <summary>
+            数据库文件路径
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.SQLiteHelper.GetDataTable(System.String@,System.String)">
+            <summary>
+            执行一条查询指令，结果返回DataTable
+            </summary>
+            <param name="sError">输出的错误信息；成功返回空</param>
+            <param name="sSQL">查询指令</param>
+            <returns>数据表</returns>
+        </member>
+        <member name="M:WebAlertSys.SQLiteHelper.GetSingle(System.String@,System.String,System.Int32,System.Int32)">
+            <summary>
+            根据查询结果，取出首行首列的元素
+            </summary>
+            <param name="sError"></param>
+            <param name="sSQL"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAlertSys.SQLiteHelper.GetMaxID(System.String@,System.String,System.String)">
+            <summary>
+            取出表中某个字段的极大值对象
+            </summary>
+            <param name="sError"></param>
+            <param name="sKeyField">字段</param>
+            <param name="sTableName">表</param>
+            <returns>最大值</returns>
+        </member>
+        <member name="M:WebAlertSys.SQLiteHelper.UpdateData(System.String@,System.String,System.Boolean)">
+            <summary>
+            执行insert,update,delete 动作，也可以使用事务(错误后回滚)
+            </summary>
+            <param name="sError"></param>
+            <param name="sSQL"></param>
+            <param name="bUseTransaction"></param>
+            <returns></returns>
+        </member>
+        <member name="P:WebAlertSys.SQLiteHelper.ConnString">
+            <summary>
+            数据库链接字符串
+            </summary>    
         </member>
         <member name="M:WebAlertSys.Program.Main">
             <summary>
