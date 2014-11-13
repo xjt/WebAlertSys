@@ -98,9 +98,9 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.ReadParamFromIniFile">
+        <member name="M:WebAlertSys.Form_Main.ReadParamFromDB">
             <summary>
-            从ini读取监控代码列表、报警值）
+            从DB读取监控代码列表、报警值）
             </summary>
             <returns>par_set</returns>
         </member>
@@ -254,26 +254,6 @@
             <summary>
             The main entry point for the application.
             </summary>
-        </member>
-        <member name="T:WebAlertSys.BisicIp">
-            <summary>
-            抽象类，定义基础网站信息和方法
-            </summary>
-        </member>
-        <member name="M:WebAlertSys.BisicIp.CreateIp(System.String,System.String)">
-            <summary>
-            抽象方法：根据code和ip装配网址
-            </summary>
-            <param name="code"></param>
-            <param name="ipUnfitted"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAlertSys.BisicIp.AddMarketToCode(System.String)">
-            <summary>
-            返回带市场类型的股票代码
-            </summary>
-            <param name="code"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

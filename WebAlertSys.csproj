@@ -105,7 +105,6 @@
     <Compile Include="Form_Set.Designer.cs">
       <DependentUpon>Form_Set.cs</DependentUpon>
     </Compile>
-    <Compile Include="IBisicIP.cs" />
     <Compile Include="INIFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

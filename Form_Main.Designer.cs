@@ -83,17 +83,16 @@
             // 
             // timer_check
             // 
-            this.timer_check.Interval = 10000;
+            this.timer_check.Interval = 30000;
             this.timer_check.Tick += new System.EventHandler(this.timer_check_Tick);
             // 
             // notifyIcon1
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
-            this.notifyIcon1.BalloonTipText = "....";
             this.notifyIcon1.BalloonTipTitle = "WebAlert";
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip2;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "WebAlert";    
+            this.notifyIcon1.Text = "WebAlert";
             // 
             // timer_icon
             // 
@@ -116,7 +115,7 @@
             this.Name = "Form_Main";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "stock price monitor";     
+            this.Text = "stock price monitor";
             this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
