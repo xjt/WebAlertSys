@@ -80,6 +80,7 @@
          * 可转换债券发行申购代码为733***；
          */
         //目前只关注：综合指数sz399XXX sz395XXX  A股证券sz000XXX sz001XXX 中小板sz002XXX 创业板sz300XXX 国债逆回购sz131XXX 封闭式基金sz150XXX
+<<<<<<< HEAD
          //临时代码： 新股发行申购代码为sz730XXX  
 11.13
 设置了三个定时器：
@@ -87,3 +88,6 @@
 2、time_IconSplash：定时切换图标表现闪烁效果,默认1s
 3、time_MarketTime:定时查询交易时段是否到了，到了则自动启动timer_Monitor；目的是保证监控的实时有效性;频率5分钟
                    一旦人工停止了timer_Monitor，则time_MarketTime不再启动；
+=======
+         //临时代码： 新股发行申购代码为sz730XXX  
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36

@@ -99,9 +99,15 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+<<<<<<< HEAD
         <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_退出_Click(System.Object,System.EventArgs)">
             <summary>
             右键：退出系统
+=======
+        <member name="M:WebAlertSys.Form_Main.ReadParamFromDB">
+            <summary>
+            从DB读取监控代码列表、报警值）
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -256,6 +262,7 @@
             The main entry point for the application.
             </summary>
         </member>
+<<<<<<< HEAD
         <member name="T:WebAlertSys.CWorkFlow">
             <summary>
             业务控制层
@@ -280,5 +287,7 @@
             </summary>
             <returns>0:开盘前 1：交易中；2：收盘后</returns>
         </member>
+=======
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
     </members>
 </doc>

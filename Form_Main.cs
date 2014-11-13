@@ -23,12 +23,23 @@ namespace WebAlertSys
     /// 隐藏窗体
     /// </summary>
     public partial class Form_Main : Form
+<<<<<<< HEAD
     {
         private static string IniFileName = "param.ini"; //配置文件名
         INIClass ini = new INIClass(IniFileName);        //配置文件类   
 
         private static Icon[] myIcon = { Properties.Resources.icon_heart,
                                          Properties.Resources.icon_man }; //图标资源     
+=======
+    {       
+   
+        private static DateTime[] MARKET_TIMES_AM = { DateTime.Today.Add(new TimeSpan(9, 30, 0)), DateTime.Today.Add(new TimeSpan(11, 30, 0)) };  //交易时段   
+        private static DateTime[] MARKET_TIMES_PM = { DateTime.Today.Add(new TimeSpan(13, 0, 0)), DateTime.Today.Add(new TimeSpan(15, 0, 0)) };       
+        private static Icon[] myIcon = { Properties.Resources.icon_heart, Properties.Resources.icon_man }; //图标资源    
+        private static string IniFileName = "param.ini";//配置文件名
+        INIClass ini = new INIClass(IniFileName); //配置文件类   
+        List<INFO_WARN> par_set = new List<INFO_WARN>(); //报警参数结构体集合
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
 
         private bool bMonitoring = false;       //监控中标志  
         private bool bIconSplashing = false;    //图标闪烁标志
@@ -48,6 +59,7 @@ namespace WebAlertSys
                 this.Close();
 
             this.ShowInTaskbar = false;     //隐藏任务栏图标
+<<<<<<< HEAD
             this.notifyIcon.Visible = true;//显示托盘图标  
 
             SQLiteHelper.ConnSqlLiteDbPath = @"E:\My Projects\WebAlertSys\HisDB";
@@ -63,6 +75,17 @@ namespace WebAlertSys
             {
                 this.Close();
             }
+=======
+            this.notifyIcon1.Visible = true;//显示托盘图标  
+    
+            //初始化股票代码库
+            //Initial_TB_CODE_INFO();         
+            
+            //从ini读控制参数   
+            this.ReadParamFromDB();  
+
+
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
         }
 
         /// <summary>
@@ -94,11 +117,36 @@ namespace WebAlertSys
             for (int i = 0; i < num; i++)
             {
                 real_data rd = sina.data_array[i];
+<<<<<<< HEAD
                 if (rd.当前价 <= this.List_MonPar[i].VFloor || rd.当前价 >= this.List_MonPar[i].VCeil)
                 {
                     BalloonTipTitle += string.Format(@"{0}到达{1}\n", rd.股票名, (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损价" : "止盈价");
                     BalloonTipText += string.Format(@"目前价位：{0} {1:0.00}%\n", rd.当前价, 100 * ((rd.当前价 / rd.昨收盘价) - 1)); ;
                     bWarnning = true;
+=======
+                if (rd.当前价 <= this.par_set[i].VFloor || rd.当前价 >= this.par_set[i].VCeil)
+                {   
+                    //开启报警图标闪烁
+                    if (!this.bRunning_IconTimer)
+                    {
+                        this.bRunning_IconTimer = true; //置闪烁标志
+                        this.timer_icon.Start();        //开启图标闪烁
+                    }
+
+
+                    //输出界面图标的报警信息
+                    this.notifyIcon1.BalloonTipTitle = string.Format(@"{0}到达{1}",
+                       rd.股票名,
+                       (rd.当前价 <= this.par_set[i].VFloor) ? "止损位" : "止盈位"
+                       );
+                    this.notifyIcon1.BalloonTipText = string.Format(@"目前价位：{0} {1:0.00}%",
+                        rd.当前价,
+                        100 * ((rd.当前价 / rd.昨收盘价) - 1)
+                        ); ;
+                    this.notifyIcon1.ShowBalloonTip(200);   //显示时长ms
+
+            
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
                 }
             }
 
@@ -160,6 +208,7 @@ namespace WebAlertSys
         {
             if (1 == CWorkFlow.MonitorTimeOK()) //如果现在交易时段
             {
+<<<<<<< HEAD
                 if (!this.bMonitoring)
                 {
                     StartOrStopMonitor(true); //自动启动巡检                    
@@ -168,6 +217,13 @@ namespace WebAlertSys
             else
             {
                 if (this.bMonitoring)     //自动停止巡检
+=======
+                //从ini读出最新控制参数
+                this.ReadParamFromDB();
+
+                //如果巡检定时器已经在运行，重启
+                if (this.bCheckTimerStatus)
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
                 {
                     StartOrStopMonitor(false);
                 }
@@ -225,11 +281,18 @@ namespace WebAlertSys
         #endregion 右键菜单
 
         /// <summary>
+<<<<<<< HEAD
         /// 从DB读取监控代码列表、报警值
         /// 给List_MonPar赋值
         /// </summary>
         /// <returns>List_MonPar</returns>
         private bool ReadMonitorParamFromDB()
+=======
+        /// 从DB读取监控代码列表、报警值）
+        /// </summary>
+        /// <returns>par_set</returns>
+        private bool ReadParamFromDB()
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
         {
             //报警数据库   
             string sError;
@@ -238,6 +301,7 @@ namespace WebAlertSys
             Debug.Assert(sError == "");
 
             //导出
+<<<<<<< HEAD
             this.List_MonPar.Clear();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -246,6 +310,16 @@ namespace WebAlertSys
                 tmp.VFloor = float.Parse((dt.Rows[i][1]).ToString());
                 tmp.VCeil = float.Parse((dt.Rows[i][2]).ToString());
                 this.List_MonPar.Add(tmp);
+=======
+            this.par_set.Clear();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                INFO_WARN tmp = new INFO_WARN();
+                tmp.code = (dt.Rows[i][0]).ToString();
+                tmp.VFloor = float.Parse((dt.Rows[i][1]).ToString());
+                tmp.VCeil = float.Parse((dt.Rows[i][2]).ToString());
+                this.par_set.Add(tmp);
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             }
 
             return true;
@@ -281,8 +355,13 @@ namespace WebAlertSys
                                   "sz399XXX", "sz395XXX", "sz000XXX", "sz001XXX", "sz002XXX", "sz300XXX", "sz131XXX", "sz150XXX"};
             //备选code股票代码集合
             CMarketCode bak = new CMarketCode(stock_all);
+<<<<<<< HEAD
             List<string> code_list = bak.sCode_All;
 
+=======
+            List<string> code_list = bak.sCode_All;           
+            
+>>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             //发web请求，并解析返回结果
             int id = 10; //每10个一组发送web请求    
             List<string> code_group = new List<string>();
