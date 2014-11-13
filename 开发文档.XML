@@ -49,14 +49,14 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_check_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.timer_Monitor_Tick(System.Object,System.EventArgs)">
             <summary>
             定时器触发，执行股价巡检
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_icon_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.timer_IconSplash_Tick(System.Object,System.EventArgs)">
             <summary>
             图标闪烁定时器
             每个周期换一次图标
@@ -104,7 +104,7 @@
             <param name="realValue">实时股价</param>
             <returns>是否报警</returns>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_Market_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.timer_MarketTime_Tick(System.Object,System.EventArgs)">
             <summary>
             判定开盘时间
             每5分钟检查一次
@@ -112,7 +112,7 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.StartOrStopMethod(System.Boolean)">
+        <member name="M:WebAlertSys.Form_Main.StartOrStopMonitor(System.Boolean)">
             <summary>
             启动或停止监控
             </summary>

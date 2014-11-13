@@ -33,27 +33,27 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_配置 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItem_启动或停止 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_退出 = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer_check = new System.Windows.Forms.Timer(this.components);
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.timer_icon = new System.Windows.Forms.Timer(this.components);
-            this.timer_Market = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip2.SuspendLayout();
+            this.timer_Monitor = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.timer_IconSplash = new System.Windows.Forms.Timer(this.components);
+            this.timer_MarketTime = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // contextMenuStrip2
+            // contextMenuStrip
             // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_配置,
             this.toolStripMenuItem1,
             this.ToolStripMenuItem_启动或停止,
             this.ToolStripMenuItem_退出});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(101, 76);
+            this.contextMenuStrip.Name = "contextMenuStrip2";
+            this.contextMenuStrip.Size = new System.Drawing.Size(101, 76);
             // 
             // ToolStripMenuItem_配置
             // 
@@ -81,30 +81,29 @@
             this.ToolStripMenuItem_退出.Text = "退出";
             this.ToolStripMenuItem_退出.Click += new System.EventHandler(this.ToolStripMenuItem_退出_Click);
             // 
-            // timer_check
+            // timer_Monitor
             // 
-            this.timer_check.Interval = 10000;
-            this.timer_check.Tick += new System.EventHandler(this.timer_check_Tick);
+            this.timer_Monitor.Interval = 30000;
+            this.timer_Monitor.Tick += new System.EventHandler(this.timer_Monitor_Tick);
             // 
-            // notifyIcon1
+            // notifyIcon
             // 
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
-            this.notifyIcon1.BalloonTipText = "....";
-            this.notifyIcon1.BalloonTipTitle = "WebAlert";
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip2;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "WebAlert";    
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
+            this.notifyIcon.BalloonTipTitle = "WebAlert";
+            this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "WebAlert";
             // 
-            // timer_icon
+            // timer_IconSplash
             // 
-            this.timer_icon.Interval = 500;
-            this.timer_icon.Tick += new System.EventHandler(this.timer_icon_Tick);
+            this.timer_IconSplash.Interval = 1000;
+            this.timer_IconSplash.Tick += new System.EventHandler(this.timer_IconSplash_Tick);
             // 
-            // timer_Market
+            // timer_MarketTime
             // 
-            this.timer_Market.Enabled = true;
-            this.timer_Market.Interval = 300000;
-            this.timer_Market.Tick += new System.EventHandler(this.timer_Market_Tick);
+            this.timer_MarketTime.Enabled = true;
+            this.timer_MarketTime.Interval = 300000;
+            this.timer_MarketTime.Tick += new System.EventHandler(this.timer_MarketTime_Tick);
             // 
             // Form_Main
             // 
@@ -116,8 +115,8 @@
             this.Name = "Form_Main";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "stock price monitor";     
-            this.contextMenuStrip2.ResumeLayout(false);
+            this.Text = "stock price monitor";
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -127,18 +126,18 @@
         /// <summary>
         /// 巡检定时器周期
         /// </summary>
-        private System.Windows.Forms.Timer timer_check;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Timer timer_Monitor;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
         /// <summary>
         /// 图标闪烁周期
         /// </summary>
-        private System.Windows.Forms.Timer timer_icon;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.Timer timer_IconSplash;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_配置;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_启动或停止;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_退出;
-        private System.Windows.Forms.Timer timer_Market;
+        private System.Windows.Forms.Timer timer_MarketTime;
     }
 }
 

@@ -43,7 +43,7 @@
             <param name="value">键的值</param>
             <returns>执行成功为True，失败为False。</returns>
         </member>
-        <member name="T:WebAlertSys.INFO_WARN">
+        <member name="T:WebAlertSys.MON_PARAM_STRUCT">
             <summary>
             报警参数结构
             </summary>
@@ -62,59 +62,60 @@
             主窗体构造函数
             </summary>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_check_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.timer_Monitor_Tick(System.Object,System.EventArgs)">
             <summary>
-            巡检定时器触发
+            触发股价监控定时器
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_icon_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.timer_IconSplash_Tick(System.Object,System.EventArgs)">
             <summary>
-            图标闪烁定时器触发
+            触发图标闪烁定时器
             每个周期换一次图标
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WebAlertSys.Form_Main.timer_MarketTime_Tick(System.Object,System.EventArgs)">
+            <summary>
+            触发交易时间有效性判定
+            如果到了交易时间，则自动启动股价监控
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_配置_Click(System.Object,System.EventArgs)">
             <summary>
-            右键菜单：弹出配置窗口
+            右键弹出配置窗口
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_启动或停止_Click(System.Object,System.EventArgs)">
             <summary>
-            启动或停止监控状态
+            右键启动或停止监控
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
         <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_退出_Click(System.Object,System.EventArgs)">
             <summary>
-            退出系统
+            右键：退出系统
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:WebAlertSys.Form_Main.ReadParamFromIniFile">
+        <member name="M:WebAlertSys.Form_Main.ReadMonitorParamFromDB">
             <summary>
-            从ini读取监控代码列表、报警值）
+            从DB读取监控代码列表、报警值
+            给List_MonPar赋值
             </summary>
-            <returns>par_set</returns>
+            <returns>List_MonPar</returns>
         </member>
-        <member name="M:WebAlertSys.Form_Main.timer_Market_Tick(System.Object,System.EventArgs)">
+        <member name="M:WebAlertSys.Form_Main.StartOrStopMonitor(System.Boolean)">
             <summary>
-            定时器3：交易时间的有效性判定，现在是否为交易时间？
-            定时器周期固定为5分钟
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:WebAlertSys.Form_Main.StartOrStopMethod(System.Boolean)">
-            <summary>
-            启动或停止监控
+            启动或停止股价监控
             </summary>
         </member>
         <member name="F:WebAlertSys.Form_Main.components">
@@ -134,12 +135,12 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="F:WebAlertSys.Form_Main.timer_check">
+        <member name="F:WebAlertSys.Form_Main.timer_Monitor">
             <summary>
             巡检定时器周期
             </summary>
         </member>
-        <member name="F:WebAlertSys.Form_Main.timer_icon">
+        <member name="F:WebAlertSys.Form_Main.timer_IconSplash">
             <summary>
             图标闪烁周期
             </summary>
@@ -255,25 +256,29 @@
             The main entry point for the application.
             </summary>
         </member>
-        <member name="T:WebAlertSys.BisicIp">
+        <member name="T:WebAlertSys.CWorkFlow">
             <summary>
-            抽象类，定义基础网站信息和方法
+            业务控制层
+            1、控制开机自自启动软件
+            2、控制开市后自启动监控
             </summary>
         </member>
-        <member name="M:WebAlertSys.BisicIp.CreateIp(System.String,System.String)">
+        <member name="M:WebAlertSys.CWorkFlow.SetAutoRun">
             <summary>
-            抽象方法：根据code和ip装配网址
+            设置开机自启动
             </summary>
-            <param name="code"></param>
-            <param name="ipUnfitted"></param>
+        </member>
+        <member name="M:WebAlertSys.CWorkFlow.MarketDayOK">
+            <summary>
+            判定今天是否为交易日
+            </summary>
             <returns></returns>
         </member>
-        <member name="M:WebAlertSys.BisicIp.AddMarketToCode(System.String)">
+        <member name="M:WebAlertSys.CWorkFlow.MonitorTimeOK">
             <summary>
-            返回带市场类型的股票代码
+            判断现在是否处于哪个时段
             </summary>
-            <param name="code"></param>
-            <returns></returns>
+            <returns>0:开盘前 1：交易中；2：收盘后</returns>
         </member>
     </members>
 </doc>

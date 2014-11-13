@@ -11,7 +11,7 @@ namespace WebAlertSys
     /// <summary>
     /// 报警参数结构
     /// </summary>
-    public struct INFO_WARN
+    public struct MON_PARAM_STRUCT
     {
         public string code;            //股票代码 
         public float VFloor;           //止损价
@@ -23,102 +23,124 @@ namespace WebAlertSys
     /// 隐藏窗体
     /// </summary>
     public partial class Form_Main : Form
-    {       
-        private static DateTime[] MARKET_TIMES_AM = { DateTime.Today.Add(new TimeSpan(9, 30, 0)), DateTime.Today.Add(new TimeSpan(11, 30, 0)) };  //交易时段   
-        private static DateTime[] MARKET_TIMES_PM = { DateTime.Today.Add(new TimeSpan(13, 0, 0)), DateTime.Today.Add(new TimeSpan(15, 0, 0)) };       
-        private static Icon[] myIcon = { Properties.Resources.icon_heart, Properties.Resources.icon_man }; //图标资源    
-        private static string IniFileName = "param.ini";//配置文件名
-        INIClass ini = new INIClass(IniFileName); //配置文件类   
-        List<INFO_WARN> par_set = new List<INFO_WARN>(); //报警参数结构体集合
+    {
+        private static string IniFileName = "param.ini"; //配置文件名
+        INIClass ini = new INIClass(IniFileName);        //配置文件类   
 
-        //定时器1：巡检定时器
-        private bool bCheckTimerStatus = false;//巡检定时器运行标志    
+        private static Icon[] myIcon = { Properties.Resources.icon_heart,
+                                         Properties.Resources.icon_man }; //图标资源     
 
-        //定时器2:图标闪烁节奏器
-        private bool bRunning_IconTimer = false;    //是否在运行？
-        private int nSplashCounter = 0;             //闪烁计数(奇偶数切换图标)
+        private bool bMonitoring = false;       //监控中标志  
+        private bool bIconSplashing = false;    //图标闪烁标志
+        private int nSplashCounter = 0;         //闪烁计数(奇偶数切换图标)
+
+        List<MON_PARAM_STRUCT> List_MonPar = new List<MON_PARAM_STRUCT>(); //监控参数集合
 
         /// <summary>
         /// 主窗体构造函数
         /// </summary>
         public Form_Main()
         {
-            InitializeComponent();          
+            InitializeComponent();
 
-            SQLiteHelper.ConnSqlLiteDbPath = @"E:\My Projects\WebAlertSys\HisDB";   
-    
+            //非交易日退出
+            if (!CWorkFlow.MarketDayOK())
+                this.Close();
+
             this.ShowInTaskbar = false;     //隐藏任务栏图标
-            this.notifyIcon1.Visible = true;//显示托盘图标  
-          
-            //从ini读控制参数
-            this.ReadParamFromIniFile();  
+            this.notifyIcon.Visible = true;//显示托盘图标  
 
-            //初始化股票代码库
-            Initial_TB_CODE_INFO();
+            SQLiteHelper.ConnSqlLiteDbPath = @"E:\My Projects\WebAlertSys\HisDB";
+            //Initial_TB_CODE_INFO();       //初始化股票代码库            
+
+            //现在是交易时段，自动启动监控
+            int label = CWorkFlow.MonitorTimeOK();
+            if (1 == label)
+            {
+                StartOrStopMonitor(true);//启动巡检         
+            }
+            else if (label == 2)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
-        /// 巡检定时器触发
+        /// 触发股价监控定时器
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer_check_Tick(object sender, EventArgs e)
+        private void timer_Monitor_Tick(object sender, EventArgs e)
         {
-            //获取实时价格
-            int num = this.par_set.Count;
+            //读出最新监控参数
+            this.ReadMonitorParamFromDB();
+
+            //取出监控代码
+            int num = this.List_MonPar.Count;
             List<string> codes = new List<string>();
             for (int i = 0; i < num; i++)
             {
-                codes.Add(this.par_set[i].code);
+                codes.Add(this.List_MonPar[i].code);
             }
-            sina_stock sina = new sina_stock(codes);      
- 
+
+            //获取实时股价
+            sina_stock sina = new sina_stock(codes);
+
+            bool bWarnning = false;//股价报警标志
+            string BalloonTipTitle = "";
+            string BalloonTipText = "";
+
             //判定是否报警
             for (int i = 0; i < num; i++)
             {
                 real_data rd = sina.data_array[i];
-                if (rd.当前价 <= this.par_set[i].VFloor || rd.当前价 >= this.par_set[i].VCeil)
+                if (rd.当前价 <= this.List_MonPar[i].VFloor || rd.当前价 >= this.List_MonPar[i].VCeil)
                 {
-                    //报警 
-                    //输出界面图标的报警信息
-                    this.notifyIcon1.BalloonTipTitle = "神马都是浮云";
-                    this.notifyIcon1.BalloonTipText = "有情况...";
-                    this.notifyIcon1.ShowBalloonTip(500);   //显示时长ms
+                    BalloonTipTitle += string.Format(@"{0}到达{1}\n", rd.股票名, (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损价" : "止盈价");
+                    BalloonTipText += string.Format(@"目前价位：{0} {1:0.00}%\n", rd.当前价, 100 * ((rd.当前价 / rd.昨收盘价) - 1)); ;
+                    bWarnning = true;
+                }
+            }
 
-                    //开启报警图标闪烁
-                    if (!this.bRunning_IconTimer)
-                    {
-                        this.bRunning_IconTimer = true; //置闪烁标志
-                        this.timer_icon.Start();        //开启图标闪烁
-                    }
-                }
-                else
+            if (bWarnning)
+            {
+                this.notifyIcon.BalloonTipTitle = BalloonTipTitle;
+                this.notifyIcon.BalloonTipText = BalloonTipText;
+
+                //开启报警图标闪烁
+                if (!this.bIconSplashing)
                 {
-                    //关闭报警图标闪烁
-                    if (this.bRunning_IconTimer)
-                    {
-                        this.bRunning_IconTimer = false;//置闪烁标志
-                        this.timer_icon.Stop();         //关闭图标闪烁
-                    }
+                    this.timer_IconSplash.Start();  //开启图标闪烁   
+                    this.bIconSplashing = true;     //置闪烁标志
                 }
-            }       
+            }
+            else
+            {
+                this.notifyIcon.BalloonTipTitle = "";
+                this.notifyIcon.BalloonTipText = "";
+                //关闭报警图标闪烁
+                if (this.bIconSplashing)
+                {
+                    this.timer_IconSplash.Stop();     //关闭图标闪烁
+                    this.bIconSplashing = false;//置闪烁标志  
+                }
+            }
 
             return;
-
         }
 
         /// <summary>
-        /// 图标闪烁定时器触发
+        /// 触发图标闪烁定时器
         /// 每个周期换一次图标
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer_icon_Tick(object sender, EventArgs e)
+        private void timer_IconSplash_Tick(object sender, EventArgs e)
         {
             //用计数器的奇偶性来切换图标
-            this.notifyIcon1.Icon = Convert.ToBoolean(this.nSplashCounter % 2) ?
+            this.notifyIcon.Icon = Convert.ToBoolean(this.nSplashCounter % 2) ?
                 Properties.Resources.icon_heart : Properties.Resources.icon_man;
-           
+
             this.nSplashCounter++;
             if (this.nSplashCounter++ >= 10)
             {
@@ -128,162 +150,139 @@ namespace WebAlertSys
             return;
         }
 
+        /// <summary>
+        /// 触发交易时间有效性判定
+        /// 如果到了交易时间，则自动启动股价监控
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer_MarketTime_Tick(object sender, EventArgs e)
+        {
+            if (1 == CWorkFlow.MonitorTimeOK()) //如果现在交易时段
+            {
+                if (!this.bMonitoring)
+                {
+                    StartOrStopMonitor(true); //自动启动巡检                    
+                }
+            }
+            else
+            {
+                if (this.bMonitoring)     //自动停止巡检
+                {
+                    StartOrStopMonitor(false);
+                }
+            }
+            return;
+        }
+
         #region 右键菜单
 
         /// <summary>
-        /// 右键菜单：弹出配置窗口
+        /// 右键弹出配置窗口
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_配置_Click(object sender, EventArgs e)
         {
             Form_Set fm = new Form_Set();
-            if (DialogResult.OK == fm.ShowDialog())   //设置窗口完成后保存配置文件
-            {
-                //从ini读出最新控制参数
-                this.ReadParamFromIniFile();
-
-                //如果巡检定时器已经在运行，重启
-                if (this.bCheckTimerStatus)
-                {
-                    this.timer_check.Stop();                 
-                    this.timer_check.Start();
-                }
-            }
+            fm.ShowDialog();
         }
 
         /// <summary>
-        /// 启动或停止监控状态
+        /// 右键启动或停止监控
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_启动或停止_Click(object sender, EventArgs e)
         {
-            if (!this.bCheckTimerStatus)   //如果巡检定时器未运行，运行它...
+            if (!this.bMonitoring)
             {
-                this.bCheckTimerStatus = true;           
-                this.timer_check.Start();//启动巡检
-                this.ToolStripMenuItem_启动或停止.Text = "停止";
+                StartOrStopMonitor(true);
             }
             else//如果巡检定时器已经运行中，停止它...
             {
-                this.bCheckTimerStatus = false;
-                this.timer_check.Stop();//停止巡检
-                this.ToolStripMenuItem_启动或停止.Text = "启动";
+                StartOrStopMonitor(false);
 
-                //无论是否图标闪烁（报警），先停止它
-                this.timer_icon.Stop();   //停止图标闪烁定时器
-                this.bRunning_IconTimer = false;
+                this.timer_MarketTime.Stop();   //停止交易时间监控器
+                this.timer_IconSplash.Stop();   //停止图标闪烁定时器
+                this.bIconSplashing = false;
             }
         }
 
         /// <summary>
-        /// 退出系统
+        /// 右键：退出系统
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_退出_Click(object sender, EventArgs e)
         {
-            this.timer_check.Stop();
-            this.timer_icon.Stop();
+            this.timer_Monitor.Stop();
+            this.timer_Monitor.Stop();
+            this.timer_IconSplash.Stop();
             this.Close();
         }
 
         #endregion 右键菜单
 
-        #region 与业务交互层无关的一些数据处理函数
-
         /// <summary>
-        /// 从ini读取监控代码列表、报警值）
+        /// 从DB读取监控代码列表、报警值
+        /// 给List_MonPar赋值
         /// </summary>
-        /// <returns>par_set</returns>
-        private bool ReadParamFromIniFile()
+        /// <returns>List_MonPar</returns>
+        private bool ReadMonitorParamFromDB()
         {
-            this.par_set.Clear();
+            //报警数据库   
+            string sError;
+            string sSql = string.Format("SELECT * FROM TB_WARN_INFO WHERE (validate = 1)");
+            DataTable dt = SQLiteHelper.GetDataTable(out sError, sSql);
+            Debug.Assert(sError == "");
 
-            //取得股票代码列表
-            string codes_line = ini.IniReadValue("股票列表","codes");
-            if (codes_line == string.Empty) //ini文件不存在，或者还没有初始化
+            //导出
+            this.List_MonPar.Clear();
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                return false;
+                MON_PARAM_STRUCT tmp = new MON_PARAM_STRUCT();
+                tmp.code = (dt.Rows[i][0]).ToString();
+                tmp.VFloor = float.Parse((dt.Rows[i][1]).ToString());
+                tmp.VCeil = float.Parse((dt.Rows[i][2]).ToString());
+                this.List_MonPar.Add(tmp);
             }
-            string[] tmp = codes_line.Split(',');
-
-            for (int i = 0; i < tmp.Length; i++)
-            {
-                string tmp1 = ini.IniReadValue("报警参数", tmp[i]);                
-
-                INFO_WARN inf = new INFO_WARN();
-                inf.code = tmp[i];
-                inf.VFloor = float.Parse((tmp1.Split(','))[0]);//取得报警特征值           
-                inf.VCeil = float.Parse((tmp1.Split(','))[1]);//取得报警特征值  
-                this.par_set.Add(inf);           
-            }      
 
             return true;
-        }   
-
-        #endregion 与业务交互层无关的一些数据处理函数
-
-        /// <summary>
-        /// 定时器3：交易时间的有效性判定，现在是否为交易时间？
-        /// 定时器周期固定为5分钟
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void timer_Market_Tick(object sender, EventArgs e)
-        {   
-            //如果现在已经在交易时间中：
-            if ((DateTime.Now > MARKET_TIMES_AM[0] && DateTime.Now < MARKET_TIMES_AM[1]) ||
-            (DateTime.Now > MARKET_TIMES_PM[0] && DateTime.Now < MARKET_TIMES_PM[1]))
-            {
-                if (!this.bCheckTimerStatus)    //自动启动巡检
-                {
-                    StartOrStopMethod(true);
-                }
-            }
-            else
-            {
-                if (this.bCheckTimerStatus)     //自动停止巡检
-                {
-                    StartOrStopMethod(false);
-                }
-            }
         }
 
         /// <summary>
-        /// 启动或停止监控
+        /// 启动或停止股价监控
         /// </summary>
-        private void StartOrStopMethod(bool bStart)
+        private void StartOrStopMonitor(bool bStart)
         {
-            this.bCheckTimerStatus = bStart;
-            this.timer_check.Interval = 1000;
             if (bStart)
             {
-                this.timer_check.Start();//启动巡检
+                this.timer_Monitor.Start();//启动巡检
             }
             else
             {
-                this.timer_check.Stop(); //停止巡检
+                this.timer_Monitor.Stop(); //停止巡检
             }
 
-            //后处理
+            this.bMonitoring = bStart;
             this.ToolStripMenuItem_启动或停止.Text = bStart ? "停止" : "启动";
         }
-
-
 
         //初始化沪深股市代码库
         private bool Initial_TB_CODE_INFO()
         {
             //股市代码定义 http://baike.baidu.com/view/965844.htm?fr=aladdin
-                        
-       
+            //目前只关注：上交所指数sh000XXX 基金sh500XXX sh500XXX A股sh600XXX 
+            //临时代码：新股申购sh730XXX 新基金申购sh735XXX   
+            //目前只关注：综合指数sz399XXX sz395XXX  A股证券sz000XXX sz001XXX 中小板sz002XXX 创业板sz300XXX 国债逆回购sz131XXX 封闭式基金sz150XXX
+            //临时代码： 新股发行申购代码为sz730XXX          
+            string[] stock_all ={ "sh000XXX", "sh500XXX", "sh550XXX", "sh60XXXX" ,
+                                  "sz399XXX", "sz395XXX", "sz000XXX", "sz001XXX", "sz002XXX", "sz300XXX", "sz131XXX", "sz150XXX"};
             //备选code股票代码集合
-            CMarketCode bak = new CMarketCode();
+            CMarketCode bak = new CMarketCode(stock_all);
             List<string> code_list = bak.sCode_All;
-           
-            
+
             //发web请求，并解析返回结果
             int id = 10; //每10个一组发送web请求    
             List<string> code_group = new List<string>();
@@ -293,22 +292,17 @@ namespace WebAlertSys
                 if (--id > 0)
                     continue;
 
-                //发送web请求，并解析
-                sina_stock sina = new sina_stock(code_group);
-           
-
-                //根据结果插入数据库
-                foreach (real_data stock in sina.data_array)
+                sina_stock sina = new sina_stock(code_group);    //发送web请求，并解析   
+                foreach (real_data stock in sina.data_array) //根据结果插入数据库
                 {
                     if (stock.股票名 == null)
                         continue;
 
-                    string sError = string.Empty;
-
                     //查询当前代码是否存在
+                    string sError = string.Empty;
                     string sSql = string.Format("SELECT * FROM TB_CODE_INFO WHERE (code = '{0}')", stock.code);
                     DataTable dt = SQLiteHelper.GetDataTable(out sError, sSql);
-                    if (dt==null || dt.Rows.Count == 0)   //插入
+                    if (dt == null || dt.Rows.Count == 0)   //插入
                     {
                         sSql = string.Format(
                                @"INSERT INTO TB_CODE_INFO (code, name) VALUES ('{0}','{1}')",
@@ -323,11 +317,8 @@ namespace WebAlertSys
                 id = 10;
             }
 
-
-              
-
-                return true;
+            return true;
         }
-    
+
     }
 }

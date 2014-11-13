@@ -26,9 +26,7 @@ namespace WebAlertSys
         /// </summary>
         private void button_OK_Click(object sender, EventArgs e)
         {
-            //设置为开机自启动
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);//打开注册表子项
-            key.SetValue("WebAlert", System.Reflection.Assembly.GetExecutingAssembly().Location);
+
         }
 
         //添加/更新一条报警记录到SQLite

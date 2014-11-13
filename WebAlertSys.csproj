@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="CByWebClient.cs" />
     <Compile Include="CMarketCode.cs" />
+    <Compile Include="CWorkFlow.cs" />
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,7 +106,6 @@
     <Compile Include="Form_Set.Designer.cs">
       <DependentUpon>Form_Set.cs</DependentUpon>
     </Compile>
-    <Compile Include="IBisicIP.cs" />
     <Compile Include="INIFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
