@@ -83,39 +83,26 @@
             // 
             // timer_Monitor
             // 
-<<<<<<< HEAD
-            this.timer_Monitor.Interval = 30000;
+            this.timer_Monitor.Interval = 10000;
             this.timer_Monitor.Tick += new System.EventHandler(this.timer_Monitor_Tick);
-=======
-            this.timer_check.Interval = 30000;
-            this.timer_check.Tick += new System.EventHandler(this.timer_check_Tick);
->>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             // 
             // notifyIcon
             // 
-<<<<<<< HEAD
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             this.notifyIcon.BalloonTipTitle = "WebAlert";
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "WebAlert";
-=======
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
-            this.notifyIcon1.BalloonTipTitle = "WebAlert";
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip2;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "WebAlert";
->>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             // 
             // timer_IconSplash
             // 
-            this.timer_IconSplash.Interval = 1000;
+            this.timer_IconSplash.Interval = 500;
             this.timer_IconSplash.Tick += new System.EventHandler(this.timer_IconSplash_Tick);
             // 
             // timer_MarketTime
             // 
             this.timer_MarketTime.Enabled = true;
-            this.timer_MarketTime.Interval = 300000;
+            this.timer_MarketTime.Interval = 60000;
             this.timer_MarketTime.Tick += new System.EventHandler(this.timer_MarketTime_Tick);
             // 
             // Form_Main
@@ -129,11 +116,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "stock price monitor";
-<<<<<<< HEAD
             this.contextMenuStrip.ResumeLayout(false);
-=======
-            this.contextMenuStrip2.ResumeLayout(false);
->>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             this.ResumeLayout(false);
 
         }

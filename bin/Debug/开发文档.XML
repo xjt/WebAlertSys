@@ -4,6 +4,30 @@
         <name>WebAlertSys</name>
     </assembly>
     <members>
+        <member name="T:WebAlertSys.CWorkFlow">
+            <summary>
+            业务控制层
+            1、控制开机自自启动软件
+            2、控制开市后自启动监控
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.CWorkFlow.SetAutoRun">
+            <summary>
+            设置开机自启动
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.CWorkFlow.MarketDayOK">
+            <summary>
+            判定今天是否为交易日
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAlertSys.CWorkFlow.MonitorTimeOK">
+            <summary>
+            判断现在是否处于哪个时段
+            </summary>
+            <returns>0:开盘前 1：交易中；2：收盘后</returns>
+        </member>
         <member name="T:WebAlertSys.INIClass">
             <summary>
             负责配置文件的读写
@@ -99,15 +123,9 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-<<<<<<< HEAD
         <member name="M:WebAlertSys.Form_Main.ToolStripMenuItem_退出_Click(System.Object,System.EventArgs)">
             <summary>
             右键：退出系统
-=======
-        <member name="M:WebAlertSys.Form_Main.ReadParamFromDB">
-            <summary>
-            从DB读取监控代码列表、报警值）
->>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -262,32 +280,5 @@
             The main entry point for the application.
             </summary>
         </member>
-<<<<<<< HEAD
-        <member name="T:WebAlertSys.CWorkFlow">
-            <summary>
-            业务控制层
-            1、控制开机自自启动软件
-            2、控制开市后自启动监控
-            </summary>
-        </member>
-        <member name="M:WebAlertSys.CWorkFlow.SetAutoRun">
-            <summary>
-            设置开机自启动
-            </summary>
-        </member>
-        <member name="M:WebAlertSys.CWorkFlow.MarketDayOK">
-            <summary>
-            判定今天是否为交易日
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WebAlertSys.CWorkFlow.MonitorTimeOK">
-            <summary>
-            判断现在是否处于哪个时段
-            </summary>
-            <returns>0:开盘前 1：交易中；2：收盘后</returns>
-        </member>
-=======
->>>>>>> 9bea9b7fa35f5696ce29eba7445b671d14d1cc36
     </members>
 </doc>

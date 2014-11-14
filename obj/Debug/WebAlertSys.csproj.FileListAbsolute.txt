@@ -12,3 +12,4 @@ E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.csprojResolveAssemblyReference.
 E:\My Projects\WebAlertSys\bin\Debug\System.Data.SQLite.dll
 E:\My Projects\WebAlertSys\bin\Debug\System.Data.SQLite.pdb
 E:\My Projects\WebAlertSys\bin\Debug\System.Data.SQLite.xml
+E:\My Projects\WebAlertSys\bin\Debug\开发文档.XML
