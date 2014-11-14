@@ -88,7 +88,8 @@ namespace WebAlertSys
             sina_stock sina = new sina_stock(codes);
 
             bool bWarnning = false;//股价报警标志
-   
+
+            string info_warning = "WebAlert";//图标文本
 
             //判定是否报警
             for (int i = 0; i < num; i++)
@@ -96,21 +97,28 @@ namespace WebAlertSys
                 real_data rd = sina.data_array[i];
                 if (rd.当前价 <= this.List_MonPar[i].VFloor || rd.当前价 >= this.List_MonPar[i].VCeil)
                 {
-                    string BalloonTipTitle = string.Format(@"{0}到达{1}", rd.股票名, (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损价" : "止盈价");
-                    string BalloonTipText = string.Format(@"当前股价：{0} {1:0.00}%", rd.当前价, 100 * ((rd.当前价 / rd.昨收盘价) - 1)); ;
-                    this.notifyIcon.ShowBalloonTip(500, BalloonTipTitle, BalloonTipText,ToolTipIcon.Warning);//气球显示持续时间
-                    Thread.Sleep(1000);
+                    string BalloonTipTitle = string.Format(@"{0} {1}", 
+                        rd.股票名, 
+                        (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损" : "止盈");
+                    string BalloonTipText = string.Format(@"{0} {1:0.00}% [{2}-{3}]", 
+                        rd.当前价, 
+                        100 * ((rd.当前价 / rd.昨收盘价) - 1),
+                        this.List_MonPar[i].VFloor,
+                        this.List_MonPar[i].VCeil);
+                    this.notifyIcon.ShowBalloonTip(500, BalloonTipTitle, BalloonTipText, ToolTipIcon.Warning);//气球显示持续时间
+                    Thread.Sleep(1000);             
                     bWarnning = true;                    
                 }             
             }
 
             //这是个特殊操作，解决不能关闭气泡提示的问题
             this.notifyIcon.Visible = false;
-            this.notifyIcon.Visible = true;
-       
+            this.notifyIcon.Visible = true;       
 
             if (bWarnning)//至少有一个报警
-            {  
+            {
+                info_warning="操作纪律：\n严格止损，防亏损扩大\n严格止盈，将盈利固化";
+
                 //开启报警图标闪烁
                 if (!this.bIconSplashing)
                 {
@@ -127,6 +135,8 @@ namespace WebAlertSys
                     this.bIconSplashing = false;//置闪烁标志  
                 }
             }
+
+            this.notifyIcon.Text = info_warning;
 
             return;
         }

@@ -31,6 +31,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Set));
             this.textBox_code = new System.Windows.Forms.TextBox();
             this.numericUpDown_min = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_max = new System.Windows.Forms.NumericUpDown();
@@ -223,6 +224,7 @@
             this.ClientSize = new System.Drawing.Size(268, 282);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Set";

@@ -69,6 +69,9 @@
   <PropertyGroup>
     <ManifestKeyFile>WebAlertSys_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>package1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -144,8 +147,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\package1.ico" />
-    <None Include="Resources\package2.ico" />
+    <None Include="Resources\package1.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\package2.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="package1.ico" />
     <Content Include="开发文档.XML" />
     <Content Include="开发日志.txt" />
   </ItemGroup>

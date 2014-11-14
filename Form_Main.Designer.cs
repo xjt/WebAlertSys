@@ -91,7 +91,7 @@
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "WebAlert";
+            this.notifyIcon.Text = "股价监控";
             this.notifyIcon.Visible = true;
             // 
             // timer_IconSplash
