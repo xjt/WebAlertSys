@@ -7,7 +7,6 @@ using System.Net;
 
 namespace WebAlertSys
 {
-
     //webclient
     class CByWebClient
     {

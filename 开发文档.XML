@@ -160,12 +160,12 @@
               重写当前线程的 CurrentUICulture 属性。
             </summary>
         </member>
-        <member name="P:WebAlertSys.Properties.Resources.icon_heart">
+        <member name="P:WebAlertSys.Properties.Resources.icon_normal">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
             </summary>
         </member>
-        <member name="P:WebAlertSys.Properties.Resources.icon_man">
+        <member name="P:WebAlertSys.Properties.Resources.icon_alert">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
             </summary>

@@ -185,12 +185,12 @@
               重写当前线程的 CurrentUICulture 属性。
             </summary>
         </member>
-        <member name="P:WebAlertSys.Properties.Resources.icon_heart">
+        <member name="P:WebAlertSys.Properties.Resources.normal">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
             </summary>
         </member>
-        <member name="P:WebAlertSys.Properties.Resources.icon_man">
+        <member name="P:WebAlertSys.Properties.Resources.warn">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
             </summary>
@@ -274,6 +274,18 @@
             <summary>
             数据库链接字符串
             </summary>    
+        </member>
+        <member name="T:WebAlertSys.CMarketCode">
+            <summary>
+            根据股票特征符，枚举所有可能的股票代码
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.CMarketCode.EnumAllCodeBak(System.String)">
+            <summary>
+            根据股票特征字符串，枚举所有可能的股票代码
+            </summary>
+            <param name="sCodeType">8位的股票特征码，如sz000XXX</param>
+            <returns>股票代码列表</returns>
         </member>
         <member name="M:WebAlertSys.Program.Main">
             <summary>

@@ -63,9 +63,9 @@ namespace WebAlertSys.Properties {
         /// <summary>
         ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon icon_heart {
+        internal static System.Drawing.Icon normal {
             get {
-                object obj = ResourceManager.GetObject("icon_heart", resourceCulture);
+                object obj = ResourceManager.GetObject("normal", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace WebAlertSys.Properties {
         /// <summary>
         ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon icon_man {
+        internal static System.Drawing.Icon warn {
             get {
-                object obj = ResourceManager.GetObject("icon_man", resourceCulture);
+                object obj = ResourceManager.GetObject("warn", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

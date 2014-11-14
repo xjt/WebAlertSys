@@ -1,8 +1,5 @@
-E:\My Projects\WebAlertSys\bin\Debug\Resources\package1.ico
-E:\My Projects\WebAlertSys\bin\Debug\Resources\package2.ico
 E:\My Projects\WebAlertSys\bin\Debug\app.config
 E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.exe.config
-E:\My Projects\WebAlertSys\bin\Debug\开发文档.XML
 E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.exe
 E:\My Projects\WebAlertSys\bin\Debug\WebAlertSys.pdb
 E:\My Projects\WebAlertSys\bin\Debug\System.Data.SQLite.dll
@@ -14,3 +11,5 @@ E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.Properties.Resources.resources
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.csproj.GenerateResource.Cache
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.exe
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.pdb
+E:\My Projects\WebAlertSys\bin\Debug\Resources\normal.ico
+E:\My Projects\WebAlertSys\bin\Debug\Resources\warn.ico
