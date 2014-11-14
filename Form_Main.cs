@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web;
 using System.Data;
+using System.Threading;
 
 namespace WebAlertSys
 {
@@ -87,8 +88,7 @@ namespace WebAlertSys
             sina_stock sina = new sina_stock(codes);
 
             bool bWarnning = false;//股价报警标志
-            string BalloonTipTitle = "";
-            string BalloonTipText = "";
+   
 
             //判定是否报警
             for (int i = 0; i < num; i++)
@@ -96,17 +96,21 @@ namespace WebAlertSys
                 real_data rd = sina.data_array[i];
                 if (rd.当前价 <= this.List_MonPar[i].VFloor || rd.当前价 >= this.List_MonPar[i].VCeil)
                 {
-                    BalloonTipTitle += string.Format(@"{0}到达{1}\n", rd.股票名, (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损价" : "止盈价");
-                    BalloonTipText += string.Format(@"目前价位：{0} {1:0.00}%\n", rd.当前价, 100 * ((rd.当前价 / rd.昨收盘价) - 1)); ;
-                    bWarnning = true;
-                }
+                    string BalloonTipTitle = string.Format(@"{0}到达{1}", rd.股票名, (rd.当前价 <= this.List_MonPar[i].VFloor) ? "止损价" : "止盈价");
+                    string BalloonTipText = string.Format(@"当前股价：{0} {1:0.00}%", rd.当前价, 100 * ((rd.当前价 / rd.昨收盘价) - 1)); ;
+                    this.notifyIcon.ShowBalloonTip(500, BalloonTipTitle, BalloonTipText,ToolTipIcon.Warning);//气球显示持续时间
+                    Thread.Sleep(1000);
+                    bWarnning = true;                    
+                }             
             }
 
-            if (bWarnning)
-            {
-                this.notifyIcon.BalloonTipTitle = BalloonTipTitle;
-                this.notifyIcon.BalloonTipText = BalloonTipText;
+            //这是个特殊操作，解决不能关闭气泡提示的问题
+            this.notifyIcon.Visible = false;
+            this.notifyIcon.Visible = true;
+       
 
+            if (bWarnning)//至少有一个报警
+            {  
                 //开启报警图标闪烁
                 if (!this.bIconSplashing)
                 {
@@ -115,9 +119,7 @@ namespace WebAlertSys
                 }
             }
             else
-            {
-                this.notifyIcon.BalloonTipTitle = "";
-                this.notifyIcon.BalloonTipText = "";
+            {        
                 //关闭报警图标闪烁
                 if (this.bIconSplashing)
                 {
@@ -138,11 +140,10 @@ namespace WebAlertSys
         private void timer_IconSplash_Tick(object sender, EventArgs e)
         {
             //用计数器的奇偶性来切换图标
-            this.notifyIcon.Icon = Convert.ToBoolean(this.nSplashCounter % 2) ?
+            this.notifyIcon.Icon = Convert.ToBoolean(nSplashCounter++ % 2) ?
                 Properties.Resources.icon_heart : Properties.Resources.icon_man;
-
-            this.nSplashCounter++;
-            if (this.nSplashCounter++ >= 10)
+      
+            if (this.nSplashCounter >= 10)
             {
                 this.nSplashCounter = 0;
             }

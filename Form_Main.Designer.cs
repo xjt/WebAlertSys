@@ -89,10 +89,10 @@
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
-            this.notifyIcon.BalloonTipTitle = "WebAlert";
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "WebAlert";
+            this.notifyIcon.Visible = true;
             // 
             // timer_IconSplash
             // 
