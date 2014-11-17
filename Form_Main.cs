@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Web;
 using System.Data;
 using System.Threading;
+using DevComponents.DotNetBar;
 
 namespace WebAlertSys
 {
@@ -23,7 +24,7 @@ namespace WebAlertSys
     /// 主窗体类
     /// 隐藏窗体
     /// </summary>
-    public partial class Form_Main : Form
+    public partial class Form_Main :Office2007Form
     {
         private static string IniFileName = "param.ini"; //配置文件名
         INIClass ini = new INIClass(IniFileName);        //配置文件类   
@@ -45,8 +46,8 @@ namespace WebAlertSys
             InitializeComponent();
 
             //非交易日退出
-            if (!CWorkFlow.MarketDayOK())
-                this.Close();
+            //if (!CWorkFlow.MarketDayOK())
+            //    this.Close();
 
             this.ShowInTaskbar = false;     //隐藏任务栏图标
             this.notifyIcon.Visible = true; //显示托盘图标  
@@ -62,7 +63,7 @@ namespace WebAlertSys
             }
             else if (label == 2)
             {
-                this.Close();
+                //this.Close();
             }
         }
 
@@ -278,6 +279,8 @@ namespace WebAlertSys
             this.bMonitoring = bStart;
             this.ToolStripMenuItem_启动或停止.Text = bStart ? "停止" : "启动";
         }
+
+
 
     }
 }

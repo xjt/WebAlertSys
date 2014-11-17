@@ -13,3 +13,5 @@ E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.exe
 E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.pdb
 E:\My Projects\WebAlertSys\bin\Debug\Resources\normal.ico
 E:\My Projects\WebAlertSys\bin\Debug\Resources\warn.ico
+E:\My Projects\WebAlertSys\bin\Debug\开发文档.XML
+E:\My Projects\WebAlertSys\obj\Debug\WebAlertSys.csprojResolveAssemblyReference.cache

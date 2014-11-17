@@ -31,5 +31,15 @@ namespace WebAlertSys.Properties {
                 return ((string)(this["INIFilePath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=\"E:\\My Projects\\WebAlertSys\\HisDB\"")]
+        public string HisDBConnectionString {
+            get {
+                return ((string)(this["HisDBConnectionString"]));
+            }
+        }
     }
 }

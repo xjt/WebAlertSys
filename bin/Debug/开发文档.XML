@@ -159,16 +159,6 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="F:WebAlertSys.Form_Main.timer_Monitor">
-            <summary>
-            巡检定时器周期
-            </summary>
-        </member>
-        <member name="F:WebAlertSys.Form_Main.timer_IconSplash">
-            <summary>
-            图标闪烁周期
-            </summary>
-        </member>
         <member name="T:WebAlertSys.Properties.Resources">
             <summary>
               一个强类型的资源类，用于查找本地化的字符串等。
@@ -185,6 +175,16 @@
               重写当前线程的 CurrentUICulture 属性。
             </summary>
         </member>
+        <member name="P:WebAlertSys.Properties.Resources._1__10_">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:WebAlertSys.Properties.Resources._12aI2412J0_5U46">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
         <member name="P:WebAlertSys.Properties.Resources.normal">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
@@ -193,6 +193,71 @@
         <member name="P:WebAlertSys.Properties.Resources.warn">
             <summary>
               查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSet">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSet.TB_CODE_INFODataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSet.TB_CODE_INFORow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSet.TB_CODE_INFORowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSetTableAdapters.TB_CODE_INFOTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager">
+             <summary>
+            TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.UpdateUpdatedRows(WebAlertSys.HisDBDataSet,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Update rows in top-down order.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.UpdateInsertedRows(WebAlertSys.HisDBDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Insert rows in top-down order.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.UpdateDeletedRows(WebAlertSys.HisDBDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Delete rows in bottom-up order.
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+            </summary>
+        </member>
+        <member name="M:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.UpdateAll(WebAlertSys.HisDBDataSet)">
+             <summary>
+            Update all changes to the dataset.
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.UpdateOrderOption">
+             <summary>
+            Update Order Option
+            </summary>
+        </member>
+        <member name="T:WebAlertSys.HisDBDataSetTableAdapters.TableAdapterManager.SelfReferenceComparer">
+             <summary>
+            Used to sort self-referenced table's rows
             </summary>
         </member>
         <member name="T:WebAlertSys.Form_Set">
